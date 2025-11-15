@@ -1,0 +1,25 @@
+name: CI Pipeline
+
+on: [push]
+
+jobs:
+  check_working_repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install scikit-learn joblib
+
+      - name: Train model
+        run: python train.py
+
+      - name: Test model
+        run: python test.py
