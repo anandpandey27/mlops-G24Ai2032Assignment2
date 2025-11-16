@@ -1,0 +1,7 @@
+import numpy as np
+
+# Dummy data
+X_test = np.random.rand(10, 4096)  # Assuming Olivetti face shape flattened
+y_test = np.random.randint(0, 40, size=10)
+
+np.savez("test_split.npz", X_test=X_test, y_test=y_test)

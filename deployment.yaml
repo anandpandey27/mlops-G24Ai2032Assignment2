@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: olivetti-flask-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: olivetti-flask
+  template:
+    metadata:
+      labels:
+        app: olivetti-flask
+    spec:
+      containers:
+      - name: olivetti-flask-container
+        image: anandpandey27/olivetti-flask-app:latest
+        ports:
+        - containerPort: 5000
