@@ -1,19 +1,19 @@
 # test.py
-# Loads savedmodel.pth and computes accuracy on test set
-
-import joblib
-import numpy as np
+from sklearn.datasets import fetch_olivetti_faces
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+import joblib
 
-def main():
-    clf = joblib.load("savedmodel.pth")
-    arr = np.load("test_split.npz")
-    X_test = arr["X_test"]
-    y_test = arr["y_test"]
+# Load dataset
+data = fetch_olivetti_faces()
+X, y = data.data, data.target
 
-    y_pred = clf.predict(X_test)
-    acc = accuracy_score(y_test, y_pred)
-    print(f"Test Accuracy: {acc:.4f}")
+# Split data
+_, X_test, _, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-if __name__ == "__main__":
-    main()
+# Load model
+clf = joblib.load('savedmodel.pth')
+
+# Evaluate
+accuracy = clf.score(X_test, y_test)
+print(f"Test Accuracy: {accuracy:.2f}")
